@@ -35,8 +35,8 @@ This repo is based on [yolov5](https://github.com/ultralytics/yolov5).
 And this repo has been rebuilt, Please see [GetStart.md](./docs/GetStart.md) for the Oriented Detection latest basic usage.
 
 # train 
-通过mk_train_list.py来制作训练和评估的数据集训练txt。
-python train.py   --weights yolov5s.pt   --data 'data/yolov5obb_demo.yaml'   --hyp 'data/hyps/obb/hyp.finetune_dota.yaml' --cfg models/yolov5s.yaml   --epochs 300   --batch-size 16   --img 640   --device 0
+* 通过mk_train_list.py来制作训练和评估的数据集训练txt。
+* python train.py   --weights yolov5s.pt   --data 'data/yolov5obb_demo.yaml'   --hyp 'data/hyps/obb/hyp.finetune_dota.yaml' --cfg models/yolov5s.yaml   --epochs 300   --batch-size 16   --img 640   --device 0
 
 # val
 python val.py --data data/yolov5obb_demo.yaml  --weights /your weights_path/best.pt --task 'val'  --img 640 
@@ -48,8 +48,8 @@ python detect.py --weights /your weights_path/best.pt   --source /test_img_path/
 python export.py --weights /your weights_path/best.pt  --batch 1
 
 # -----剪枝---------
-#训练（先进行上面的预训练，对训练好的模型再进行稀疏训练）
-python train_sparity.py --st --sr 0.0002 --weights /your weights_path/best.pt   --data data/yolov5obb_demo.yaml --epochs 100 --imgsz 640 --adam  --cfg models/yolov5s.yaml --batch-size 16
+* 训练（先进行上面的预训练，对训练好的模型再进行稀疏训练）
+* python train_sparity.py --st --sr 0.0002 --weights /your weights_path/best.pt   --data data/yolov5obb_demo.yaml --epochs 100 --imgsz 640 --adam  --cfg models/yolov5s.yaml --batch-size 16
 
 # 剪枝
 python prune.py --percent 0.7 --weights /your_save_path/last.pt --data data/yolov5obb_demo.yaml --cfg models/yolov5s.yaml
