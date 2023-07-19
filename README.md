@@ -39,26 +39,26 @@ And this repo has been rebuilt, Please see [GetStart.md](./docs/GetStart.md) for
 * python train.py   --weights yolov5s.pt   --data 'data/yolov5obb_demo.yaml'   --hyp 'data/hyps/obb/hyp.finetune_dota.yaml' --cfg models/yolov5s.yaml   --epochs 300   --batch-size 16   --img 640   --device 0
 
 # val
-python val.py --data data/yolov5obb_demo.yaml  --weights /your weights_path/best.pt --task 'val'  --img 640 
+* python val.py --data data/yolov5obb_demo.yaml  --weights /your weights_path/best.pt --task 'val'  --img 640 
 
 # detect
-python detect.py --weights /your weights_path/best.pt   --source /test_img_path/   --img 640 --device 6 --conf-thres 0.25 --iou-thres 0.1 --hide-labels --hide-conf
+* python detect.py --weights /your weights_path/best.pt   --source /test_img_path/   --img 640 --device 6 --conf-thres 0.25 --iou-thres 0.1 --hide-labels --hide-conf
 
 # export
-python export.py --weights /your weights_path/best.pt  --batch 1
+* python export.py --weights /your weights_path/best.pt  --batch 1
 
 # -----剪枝---------
 * 训练（先进行上面的预训练，对训练好的模型再进行稀疏训练）
 * python train_sparity.py --st --sr 0.0002 --weights /your weights_path/best.pt   --data data/yolov5obb_demo.yaml --epochs 100 --imgsz 640 --adam  --cfg models/yolov5s.yaml --batch-size 16
 
 # 剪枝
-python prune.py --percent 0.7 --weights /your_save_path/last.pt --data data/yolov5obb_demo.yaml --cfg models/yolov5s.yaml
+* python prune.py --percent 0.7 --weights /your_save_path/last.pt --data data/yolov5obb_demo.yaml --cfg models/yolov5s.yaml
 
 # 微调
-python prune_finetune.py --weights /your save_path/pruned_model.pt --data data/yolov5obb_demo.yaml  --epochs 100 --imgsz 640 --adam 
+* python prune_finetune.py --weights /your save_path/pruned_model.pt --data data/yolov5obb_demo.yaml  --epochs 100 --imgsz 640 --adam 
 
 # 跟踪
-python track_predict.py
+* python track_predict.py
 
 #  Acknowledgements
 I have used utility functions from other wonderful open-source projects. Espeicially thank the authors of:
