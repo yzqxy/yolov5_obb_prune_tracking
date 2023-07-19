@@ -1,18 +1,9 @@
 # Yolov5 for Oriented Object Detection
-![图片](./docs/detection.png)
-![train_batch0.jpg](./docs/train_batch6.jpg)
-![results.png](./docs/results.png)
 
 The code for the implementation of “[Yolov5](https://github.com/ultralytics/yolov5) + [Circular Smooth Label](https://arxiv.org/abs/2003.05597v2)”. 
 
 # Results and Models
 The results on **DOTA_subsize1024_gap200_rate1.0** test-dev set are shown in the table below. (**password: yolo**)
-
- |Model<br><sup>(download link) |Size<br><sup>(pixels) | TTA<br><sup>(multi-scale/<br>rotate testing) | OBB mAP<sup>test<br><sup>0.5<br>DOTAv1.0 | OBB mAP<sup>test<br><sup>0.5<br>DOTAv1.5 | OBB mAP<sup>test<br><sup>0.5<br>DOTAv2.0 | Speed<br><sup>CPU b1<br>(ms)|Speed<br><sup>2080Ti b1<br>(ms) |Speed<br><sup>2080Ti b16<br>(ms) |params<br><sup>(M) |FLOPs<br><sup>@640 (B) 
- | ----                                                                                                                                                           | ---  | ---   | ---      | ---   | ---   | ---   | ---   | --- | --- | ---
- |yolov5m [[baidu](https://pan.baidu.com/s/1UPNaMuQ_gNce9167FZx8-w)/[google](https://drive.google.com/file/d/1NMgxcN98cmBg9_nVK4axxqfiq4pYh-as/view?usp=sharing)]  |1024  | ×     |**77.3** |**73.2** |**58.0**  |**328.2**      |**16.9**     |**11.3**      |**21.6**   |**50.5**   
- |yolov5s [[baidu](https://pan.baidu.com/s/1Lqw42xlSZxZn-2gNniBpmw?pwd=yolo)]    |1024  | ×     |**76.8**   |-      |-      |-      |**15.6**  | -     |**7.5**     |**17.5**    
- |yolov5n [[baidu](https://pan.baidu.com/s/1Lqw42xlSZxZn-2gNniBpmw?pwd=yolo)]    |1024  | ×     |**73.3**   |-      |-      |-      |**15.2**  | -     |**2.0**     |**5.0**
 
 
 <details>
@@ -42,6 +33,32 @@ Please refer to [install.md](./docs/install.md) for installation and dataset pre
 This repo is based on [yolov5](https://github.com/ultralytics/yolov5). 
 
 And this repo has been rebuilt, Please see [GetStart.md](./docs/GetStart.md) for the Oriented Detection latest basic usage.
+
+# train 
+通过mk_train_list.py来制作训练和评估的数据集训练txt。
+python train.py   --weights yolov5s.pt   --data 'data/yolov5obb_demo.yaml'   --hyp 'data/hyps/obb/hyp.finetune_dota.yaml' --cfg models/yolov5s.yaml   --epochs 300   --batch-size 16   --img 640   --device 0
+
+# val
+python val.py --data data/yolov5obb_demo.yaml  --weights /your weights_path/best.pt --task 'val'  --img 640 
+
+# detect
+python detect.py --weights /your weights_path/best.pt   --source /test_img_path/   --img 640 --device 6 --conf-thres 0.25 --iou-thres 0.1 --hide-labels --hide-conf
+
+# export
+python export.py --weights /your weights_path/best.pt  --batch 1
+
+# -----剪枝---------
+#训练（先进行上面的预训练，对训练好的模型再进行稀疏训练）
+python train_sparity.py --st --sr 0.0002 --weights /your weights_path/best.pt   --data data/yolov5obb_demo.yaml --epochs 100 --imgsz 640 --adam  --cfg models/yolov5s.yaml --batch-size 16
+
+# 剪枝
+python prune.py --percent 0.7 --weights /your_save_path/last.pt --data data/yolov5obb_demo.yaml --cfg models/yolov5s.yaml
+
+# 微调
+python prune_finetune.py --weights /your save_path/pruned_model.pt --data data/yolov5obb_demo.yaml  --epochs 100 --imgsz 640 --adam 
+
+# 跟踪
+python track_predict.py
 
 #  Acknowledgements
 I have used utility functions from other wonderful open-source projects. Espeicially thank the authors of:
