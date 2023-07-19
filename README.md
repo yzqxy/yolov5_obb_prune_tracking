@@ -48,7 +48,8 @@ And this repo has been rebuilt, Please see [GetStart.md](./docs/GetStart.md) for
 * python export.py --weights /your weights_path/best.pt  --batch 1
 
 # -----剪枝---------
-* 训练（先进行上面的预训练，对训练好的模型再进行稀疏训练）
+# 稀疏训练
+* 先进行上面的预训练，对训练好的模型再进行稀疏训练
 * python train_sparity.py --st --sr 0.0002 --weights /your weights_path/best.pt   --data data/yolov5obb_demo.yaml --epochs 100 --imgsz 640 --adam  --cfg models/yolov5s.yaml --batch-size 16
 
 # 剪枝
