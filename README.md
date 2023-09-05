@@ -1,29 +1,6 @@
 # Yolov5 for Oriented Object Detection
-
-The code for the implementation of “[Yolov5](https://github.com/ultralytics/yolov5) + [Circular Smooth Label](https://arxiv.org/abs/2003.05597v2)”. 
-
-# Results and Models
-The results on **DOTA_subsize1024_gap200_rate1.0** test-dev set are shown in the table below. (**password: yolo**)
-
-
-<details>
-  <summary>Table Notes (click to expand / **点我看更多**)</summary>
-
-* All checkpoints are trained to 300 epochs with [COCO pre-trained checkpoints](https://github.com/ultralytics/yolov5/releases/tag/v6.0), default settings and hyperparameters.
-* **mAP<sup>test dota</sup>** values are for single-model single-scale on [DOTA](https://captain-whu.github.io/DOTA/index.html)(1024,1024,200,1.0) dataset.<br>Reproduce Example:
- ```shell
- python val.py --data 'data/dotav15_poly.yaml' --img 1024 --conf 0.01 --iou 0.4 --task 'test' --batch 16 --save-json --name 'dotav15_test_split'
- python tools/TestJson2VocClassTxt.py --json_path 'runs/val/dotav15_test_split/best_obb_predictions.json' --save_path 'runs/val/dotav15_test_split/obb_predictions_Txt'
- python DOTA_devkit/ResultMerge_multi_process.py --scrpath 'runs/val/dotav15_test_split/obb_predictions_Txt' --dstpath 'runs/val/dotav15_test_split/obb_predictions_Txt_Merged'
- zip the poly format results files and submit it to https://captain-whu.github.io/DOTA/evaluation.html
- ```
-* **Speed** averaged over DOTAv1.5 val_split_subsize1024_gap200 images using a 2080Ti gpu. NMS + pre-process times is included.<br>Reproduce by `python val.py --data 'data/dotav15_poly.yaml' --img 1024 --task speed --batch 1`
-
-
-</details>
-
-# [Updates](./docs/ChangeLog.md)
-- [2022/1/7] : **Faster and stronger**, some bugs fixed, yolov5 base version updated.
+YOLOV8版本已发布
+* [Yolov8_obb_Prune_Track](https://github.com/yzqxy/Yolov8_obb_Prune_Track/tree/main)
 
 
 # Installation
